@@ -59,6 +59,10 @@
             "type": "string",
             "defaultValue": ""
         },
+        "availabilityset_or_empty": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "enable_enhanced_networking": {
             "type": "bool",
             "defaultValue": true
@@ -92,6 +96,7 @@
                 "proximityPlacementGroup": {
                     "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',parameters('proximity_group_name'))]"
                 },
+                "availabilitySet": "[if(equals(parameters('availabilityset_or_empty'), ''), json('null'), parameters('availabilityset_or_empty'))]",
                 "storageProfile": {
                     "imageReference": "[parameters('os_image')]",
                     "osDisk": {

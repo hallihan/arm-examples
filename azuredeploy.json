@@ -486,6 +486,9 @@
                     },
                     "postInstallActions": {
                         "value": "[variables('postInstallActions')]"
+                    },
+                    "availabilityset_or_empty": {
+                        "value": "[if(greater(parameters('Backend VM Count'),1),concat(parameters('Backend VM Name Base'),'-AS'),'')]"
                     }
                 },
                 "template": {
@@ -527,7 +530,11 @@
                         },
                         "postInstallActions": {
                             "type": "object"
+                        },
+                        "availabilityset_or_empty": {
+                            "type": "string"
                         }
+
                     },
                     "resources": [
                         {
@@ -584,6 +591,9 @@
                                     },
                                     "loadbalancer_id_or_empty": {
                                         "value": "[concat(resourceId('Microsoft.Network/applicationGateways',concat(parameters('Backend VM Name Base'),'-loadbalancer')),'/backendAddressPools/default-backend')]"
+                                    },
+                                    "availabilityset_or_empty": {
+                                        "value": "[parameters('availabilityset_or_empty')]"
                                     }
                                 }
                             },
@@ -663,6 +673,9 @@
                     },
                     "loadbalancer_id_or_empty": {
                         "value": ""
+                    },
+                    "availabilityset_or_empty": {
+                        "value": "[if(greater(parameters('Midtier VM Count'),1),concat(parameters('Midtier VM Name Base'),'-AS'),'')]"
                     }
                 }
             },
@@ -733,6 +746,9 @@
                         "value": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-jump'))]"
                     },
                     "loadbalancer_id_or_empty": {
+                        "value": ""
+                    },
+                    "availabilityset_or_empty": {
                         "value": ""
                     }
                 }
