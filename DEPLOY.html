@@ -16,7 +16,7 @@
        newdeploylink = 'https://portal.azure.com/#create/Microsoft.Template/uri/';
        current = window.location.href;
        templateuri = current.substr(0, current.lastIndexOf('/')+1) + 'azuredeploy.json';
-       newdeploylink += encodeURI(templateuri);
+       newdeploylink += encodeURIComponent(templateuri);
        document.getElementById('deploylink').href=newdeploylink;
        document.getElementById('deploylinklabel').innerText=newdeploylink;
      </script>
