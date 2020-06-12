@@ -296,6 +296,9 @@
             "type": "Microsoft.Compute/availabilitySets",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('Backend VM Name Base'),'-AS')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
+            ],
             "condition": "[greater(parameters('Backend VM Count'),1)]",
             "location": "[resourceGroup().location]",
             "sku": {
@@ -313,6 +316,9 @@
             "type": "Microsoft.Compute/availabilitySets",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('Midtier VM Name Base'),'-AS')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
+            ],
             "condition": "[greater(parameters('Midtier VM Count'),1)]",
             "location": "[resourceGroup().location]",
             "sku": {
