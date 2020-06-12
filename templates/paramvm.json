@@ -69,19 +69,11 @@
         }
     },
     "variables": {
-        "loadbalancer_if_empty": [
-        ],
         "loadbalancer_if_not_empty": [
             {
                 "id": "[parameters('loadbalancer_id_or_empty')]"
             }
-        ],
-        "loadbalancer": "[if(equals(parameters('loadbalancer_id_or_empty'),''),variables('loadbalancer_if_empty'),variables('loadbalancer_if_not_empty'))]",
-        "publicip_if_empty": null,
-        "public_ip_if_not_empty": {
-            "id": "[parameters('public_ip_or_empty')]"
-        },
-        "publicip":"[if(equals(parameters('public_ip_or_empty'), ''),variables('publicip_if_empty'),variables('public_ip_if_not_empty'))]"
+        ]
     },
     "resources": [
         {
@@ -186,10 +178,10 @@
                             "subnet": {
                                 "id": "[resourceId(parameters('vnet_resource_group'), 'Microsoft.Network/virtualNetworks/subnets', parameters('vnet_name'),  parameters('vnet_subnet_name'))]"
                             },
-                            "applicationGatewayBackendAddressPools": "[variables('loadbalancer')]",
+                            "applicationGatewayBackendAddressPools": "[if(empty(parameters('loadbalancer_id_or_empty')),json('[]'),variables('loadbalancer_if_not_empty'))]",
                             "primary": true,
                             "privateIPAddressVersion": "IPv4",
-                            "publicIPAddress": "[variables('publicip')]"
+                            "publicIPAddress": "[if(empty(parameters('public_ip_or_empty')),json('null'),parameters('public_ip_or_empty'))]"
                         }
                     }
                 ],
