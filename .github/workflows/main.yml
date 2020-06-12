@@ -16,8 +16,8 @@ jobs:
     - name: Auto Merge
       uses: robotology/gh-action-nightly-merge@v1.2.0
       with:
-        stable_branch: 'gh-pages'
-        development_branch: 'main'
+        stable_branch: 'main'
+        development_branch: 'gh-pages'
         allow_ff: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
