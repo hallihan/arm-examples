@@ -518,8 +518,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
-                "[resourceId('Microsoft.Resources/deployments', 'ParameterizedAppGateway')]",
-                "[if(greater(parameters('Backend VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),'')]"
+                "[resourceId('Microsoft.Resources/deployments', 'ParameterizedAppGateway')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -564,7 +563,7 @@
                         "value": "[variables('postInstallActions')]"
                     },
                     "availabilityset_or_empty": {
-                        "value": "[if(greater(parameters('Backend VM Count'),1),concat(parameters('Backend VM Name Base'),'-AS'),'')]"
+                        "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Backend VM Name Base'),'-AS')).id,'')]"
                     },
                     "loadbalancer_id_or_empty": {
                         "value": "[if(equals(parameters('Deploy App Gateway Frontend'),'Yes'),concat(resourceId('Microsoft.Network/applicationGateways','frontend-loadbalancer'),'/backendAddressPools/default-backend'),'')]"
@@ -703,8 +702,7 @@
             "name": "[concat('ParameterizedMidtierVM-', copyIndex())]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
-                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
-                "[if(greater(parameters('Midtier VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),'')]"
+                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -758,7 +756,7 @@
                         "value": ""
                     },
                     "availabilityset_or_empty": {
-                        "value": "[if(greater(parameters('Midtier VM Count'),1),concat(parameters('Midtier VM Name Base'),'-AS'),'')]"
+                        "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Midtier VM Name Base'),'-AS')).id,'')]"
                     }
                 }
             },

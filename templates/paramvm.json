@@ -59,7 +59,7 @@
             "type": "string",
             "defaultValue": ""
         },
-        "availabilityset_or_empty": {
+        "availabilityset_id_or_empty": {
             "type": "string",
             "defaultValue": ""
         },
@@ -75,7 +75,7 @@
             }
         ],
         "availabilityset_if_not_empty": {
-            "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilityset_or_empty'))]"
+            "id": "[parameters('availabilityset_id_or_empty')]"
         }
     },
     "resources": [
@@ -94,7 +94,7 @@
                 "proximityPlacementGroup": {
                     "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',parameters('proximity_group_name'))]"
                 },
-                "availabilitySet": "[if(equals(parameters('availabilityset_or_empty'), ''), json('null'), variables('availabilityset_if_not_empty'))]",
+                "availabilitySet": "[if(empty(parameters('availabilityset_id_or_empty')), json('null'), variables('availabilityset_if_not_empty'))]",
                 "storageProfile": {
                     "imageReference": "[parameters('os_image')]",
                     "osDisk": {
@@ -127,7 +127,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[if(equals(parameters('public_ip_or_empty'), ''),resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vm_name'), '_nic')),resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vm_name'), '_nic_pip')))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vm_name'), '_nic'))]"
                         }
                     ]
                 },
@@ -199,7 +199,7 @@
     ],
     "outputs": {
         "privateIp": {
-            "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', if(equals(parameters('public_ip_or_empty'), ''),concat(parameters('vm_name'), '_nic'),concat(parameters('vm_name'), '_nic_pip')))).ipConfigurations[0].properties.privateIPAddress]",
+            "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', if(empty(parameters('public_ip_or_empty')),concat(parameters('vm_name'), '_nic'),concat(parameters('vm_name'), '_nic_pip')))).ipConfigurations[0].properties.privateIPAddress]",
             "type": "string"
         }
     }
