@@ -677,7 +677,7 @@
                         "value": "[variables('postInstallActions')['midtier']]"
                     },
                     "enable_enhanced_networking": {
-                        "value": true
+                        "value": "[not(equals(parameters('Midtier VM Size'),'Standard_D2s_v3'))]"
                     },
                     "public_ip_or_empty": {
                         "value": ""
