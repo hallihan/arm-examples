@@ -76,6 +76,9 @@
         ],
         "availabilityset_if_not_empty": {
             "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('availabilityset_id_or_empty'))]"
+        },
+        "public_ip_if_not_empty": {
+            "id": "[parameters('public_ip_or_empty')]"
         }
     },
     "resources": [
@@ -184,7 +187,7 @@
                             "applicationGatewayBackendAddressPools": "[if(empty(parameters('loadbalancer_id_or_empty')),json('[]'),variables('loadbalancer_if_not_empty'))]",
                             "primary": true,
                             "privateIPAddressVersion": "IPv4",
-                            "publicIPAddress": "[if(empty(parameters('public_ip_or_empty')),json('null'),parameters('public_ip_or_empty'))]"
+                            "publicIPAddress": "[if(empty(parameters('public_ip_or_empty')),json('null'),variables('public_ip_if_not_empty'))]"
                         }
                     }
                 ],
