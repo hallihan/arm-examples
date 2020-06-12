@@ -519,7 +519,7 @@
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
                 "[resourceId('Microsoft.Resources/deployments', 'ParameterizedAppGateway')]",
-                "[if(greater(parameters('Backend VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),json('null'))]"
+                "[if(greater(parameters('Backend VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),'')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -704,7 +704,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
-                "[if(greater(parameters('Midtier VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),json('null'))]"
+                "[if(greater(parameters('Midtier VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),'')]"
             ],
             "properties": {
                 "mode": "Incremental",
