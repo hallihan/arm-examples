@@ -136,6 +136,48 @@
     },
     "variables": {
         "vnet_resource_group_name": "[if(equals(parameters('Use a New or Existing Virtual Network?'),'New'),resourceGroup().name,parameters('Existing Virtual Network Resource Group'))]",
+        "AvailabilitySetFaultDomain": {
+            "eastus": 3,
+            "eastus2": 3,
+            "westus": 3,
+            "centralus": 3,
+            "northcentralus": 3,
+            "southcentralus": 3,
+            "northeurope": 3,
+            "westeurope": 3,
+            "eastasia": 2,
+            "southeastasia": 2,
+            "japaneast": 2,
+            "japanwest": 2,
+            "australiaeast": 2,
+            "australiasoutheast": 2,
+            "AustraliaCentral": 2,
+            "brazilsouth": 3,
+            "SouthIndia": 2,
+            "CentralIndia": 3,
+            "WestIndia": 2,
+            "CanadaCentral": 3,
+            "CanadaEast": 2,
+            "westus2": 3,
+            "westcentralus": 2,
+            "uksouth": 2,
+            "ukwest": 2,
+            "KoreaCentral": 2,
+            "KoreaSouth": 2,
+            "FranceCentral": 3,
+            "SouthAfricaNorth": 2,
+            "UAENorth": 2,
+            "SwitzerlandNorth": 2,
+            "GermanyWestCentral": 2,
+            "NorwayEast": 2,
+            "FranceSouth": 2,
+            "AustraliaCentral2": 2,
+            "SouthAfricaWest": 2,
+            "UAECentral": 2,
+            "SwitzerlandWest": 2,
+            "GermanyNorth": 2,
+            "NorwayWest": 2
+        },
         "storageProfile": {
             "Standard_D2s_v3": 1,
             "Standard_D4s_v3": 1,
@@ -249,6 +291,34 @@
             "properties": {
             },
             "location": "[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('Backend VM Name Base'),'-AS')]",
+            "condition": "[greater(parameters('Backend VM Count'),1)]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformFaultDomainCount": "[variables('AvailabilitySetFaultDomain')[resourceGroup().location]]",
+                "platformUpdateDomainCount": 6
+            }
+        },
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('Midtier VM Name Base'),'-AS')]",
+            "condition": "[greater(parameters('Midtier VM Count'),1)]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformFaultDomainCount": "[variables('AvailabilitySetFaultDomain')[resourceGroup().location]]",
+                "platformUpdateDomainCount": 6
+            }
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -448,7 +518,8 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
-                "[resourceId('Microsoft.Resources/deployments', 'ParameterizedAppGateway')]"
+                "[resourceId('Microsoft.Resources/deployments', 'ParameterizedAppGateway')]",
+                "[if(greater(parameters('Backend VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),json('null'))]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -632,7 +703,8 @@
             "name": "[concat('ParameterizedMidtierVM-', copyIndex())]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
-                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
+                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
+                "[if(greater(parameters('Midtier VM Count'),1),resourceId('Microsoft.Compute/availabilitySets',concat(parameters('Backend VM Name Base'),'-AS')),json('null'))]"
             ],
             "properties": {
                 "mode": "Incremental",
