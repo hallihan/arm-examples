@@ -563,7 +563,7 @@
                         "value": "[variables('postInstallActions')]"
                     },
                     "availabilityset_id_or_empty": {
-                        "value": "[if(greater(parameters('Backend VM Count'),1),reference(concat(parameters('Backend VM Name Base'),'-AS'),'2019-12-01', 'Full').id,'')]"
+                        "value": "[if(greater(parameters('Backend VM Count'),1),reference(concat(parameters('Backend VM Name Base'),'-AS'),'2019-12-01', 'Full').resourceId,'')]"
                     },
                     "loadbalancer_id_or_empty": {
                         "value": "[if(equals(parameters('Deploy App Gateway Frontend'),'Yes'),concat(resourceId('Microsoft.Network/applicationGateways','frontend-loadbalancer'),'/backendAddressPools/default-backend'),'')]"
@@ -756,7 +756,7 @@
                         "value": ""
                     },
                     "availabilityset_id_or_empty": {
-                        "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Midtier VM Name Base'),'-AS'),'2019-12-01', 'Full').id,'')]"
+                        "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Midtier VM Name Base'),'-AS'),'2019-12-01', 'Full').resourceId,'')]"
                     }
                 }
             },
