@@ -562,7 +562,7 @@
                     "postInstallActions": {
                         "value": "[variables('postInstallActions')]"
                     },
-                    "availabilityset_or_empty": {
+                    "availabilityset_id_or_empty": {
                         "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Backend VM Name Base'),'-AS')).id,'')]"
                     },
                     "loadbalancer_id_or_empty": {
@@ -609,7 +609,7 @@
                         "postInstallActions": {
                             "type": "object"
                         },
-                        "availabilityset_or_empty": {
+                        "availabilityset_id_or_empty": {
                             "type": "string"
                         },
                         "loadbalancer_id_or_empty": {
@@ -673,8 +673,8 @@
                                     "loadbalancer_id_or_empty": {
                                         "value": "[parameters('loadbalancer_id_or_empty')]"
                                     },
-                                    "availabilityset_or_empty": {
-                                        "value": "[parameters('availabilityset_or_empty')]"
+                                    "availabilityset_id_or_empty": {
+                                        "value": "[parameters('availabilityset_id_or_empty')]"
                                     }
                                 }
                             },
@@ -755,7 +755,7 @@
                     "loadbalancer_id_or_empty": {
                         "value": ""
                     },
-                    "availabilityset_or_empty": {
+                    "availabilityset_id_or_empty": {
                         "value": "[if(greater(parameters('Midtier VM Count'),1),reference(concat(parameters('Midtier VM Name Base'),'-AS')).id,'')]"
                     }
                 }
@@ -830,7 +830,7 @@
                     "loadbalancer_id_or_empty": {
                         "value": ""
                     },
-                    "availabilityset_or_empty": {
+                    "availabilityset_id_or_empty": {
                         "value": ""
                     }
                 }
