@@ -2,7 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "outputs": {
-        "DebugMidtierAS":"[reference(concat(parameters('Midtier VM Name Base'),'-AS'),'2019-12-01', 'Full'))]"
+        "DebugMidtierAS": {
+            "type": "object",
+            "value": "[reference(concat(parameters('Midtier VM Name Base'),'-AS'),'2019-12-01', 'Full')]"
+        }
     },
     "parameters": {
         "Use a New or Existing Virtual Network?": {
