@@ -46,9 +46,11 @@
             ]
         },
         "Midtier VM Size": {
-            "defaultValue": "Standard_D8s_v3",
+            "defaultValue": "Standard_D2s_v3",
             "type": "String",
             "allowedValues": [
+                "Standard_D2s_v3",
+                "Standard_D4s_v3",
                 "Standard_D8s_v3",
                 "Standard_D16s_v3",
                 "Standard_D32s_v3"
@@ -59,7 +61,7 @@
             "type": "String"
         },
         "Backend VM Count": {
-            "defaultValue": 1,
+            "defaultValue": 2,
             "type": "Int",
             "minValue": 0,
             "maxValue": 100
@@ -81,7 +83,7 @@
             ]
         },
         "Frontend Network Security Group Name": {
-            "defaultValue": "frontentNSG",
+            "defaultValue": "frontendNSG",
             "type": "String"
         },
         "Allow Frontend connection from IP or CIDR block": {
@@ -135,6 +137,8 @@
     "variables": {
         "vnet_resource_group_name": "[if(equals(parameters('Use a New or Existing Virtual Network?'),'New'),resourceGroup().name,parameters('Existing Virtual Network Resource Group'))]",
         "storageProfile": {
+            "Standard_D2s_v3": 1,
+            "Standard_D4s_v3": 1,
             "Standard_D8s_v3": 2,
             "Standard_D16s_v3": 4,
             "Standard_D32s_v3": 8
@@ -420,7 +424,7 @@
                         "value": "[resourceGroup().location]"
                     },
                     "lb_name": {
-                        "value": "frontent-loadbalancer"
+                        "value": "frontend-loadbalancer"
                     },
                     "public_ip": {
                         "value": "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-loadbalancer-ip')]"
