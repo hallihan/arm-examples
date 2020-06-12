@@ -21,7 +21,7 @@
             }
         },
         "Virtual Network Name": {
-            "defaultValue": "multitiervnet",
+            "defaultValue": "examplevnet",
             "type": "String"
         },
         "Operating System Image": {
@@ -538,7 +538,7 @@
                         "availabilityset_or_empty": {
                             "type": "string"
                         },
-                        "loloadbalancer_id_or_empty": {
+                        "loadbalancer_id_or_empty": {
                             "type": "string"
                         }
 
@@ -597,6 +597,7 @@
                                         "value": ""
                                     },
                                     "loadbalancer_id_or_empty": {
+                                        "value": "[parameters('loadbalancer_id_or_empty')]"
                                     },
                                     "availabilityset_or_empty": {
                                         "value": "[parameters('availabilityset_or_empty')]"
