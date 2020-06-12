@@ -86,9 +86,6 @@
             "dependsOn": [
                 "[if(equals(parameters('public_ip_or_empty'), ''),resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vm_name'), '_nic')),resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vm_name'), '_nic_pip')))]"
             ],
-            "zones": [
-                "1"
-            ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('vm_size')]"
