@@ -200,7 +200,7 @@
                     "sku": "7-LVM",
                     "version": "latest"
                 },
-                "diskscript": "RHEL_raid_azure_data.sh"
+                "diskscript": "scripts/RHEL_raid_azure_data.sh"
             },
             "SL12": {
                 "image": {
@@ -209,7 +209,7 @@
                     "sku": "gen1",
                     "version": "latest"
                 },
-                "diskscript": "SLES_raid_azure_data.sh"
+                "diskscript": "scripts/SLES_raid_azure_data.sh"
             }
         },
         "postInstallActions": {
@@ -217,22 +217,22 @@
                 "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall1.sh; sh ExamplePostInstall2.sh')]",
                 "fileUris": [
                     "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-                    "[uri(deployment().properties.templateLink.uri, 'ExamplePostInstall1.sh')]",
-                    "[uri(deployment().properties.templateLink.uri, 'ExamplePostInstall2.sh')]"
+                    "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall1.sh')]",
+                    "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall2.sh')]"
                 ]
             },
             "midtier": {
                 "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall1.sh')]",
                 "fileUris": [
                     "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-                    "[uri(deployment().properties.templateLink.uri, 'ExamplePostInstall1.sh')]"
+                    "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall1.sh')]"
                 ]
             },
             "jump": {
                 "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall3.sh')]",
                 "fileUris": [
                     "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-                    "[uri(deployment().properties.templateLink.uri, 'ExamplePostInstall3.sh')]"
+                    "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall3.sh')]"
                 ]
             }
         }
@@ -412,7 +412,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'paramlb.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramlb.json')]"
                 },
                 "parameters": {
                     "location": {
@@ -452,7 +452,7 @@
                 },
                 "parameters": {
                     "templateUri": {
-                        "value": "[uri(deployment().properties.templateLink.uri, 'paramvm.json')]"
+                        "value": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
                     },
                     "Backend VM Template": {
                         "value": "[parameters('Backend VM Template')]"
@@ -616,7 +616,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {
@@ -684,7 +684,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {
