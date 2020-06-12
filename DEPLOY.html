@@ -4,10 +4,21 @@
   </head>
   <body>
     <h1>Azure Deployment Auto Link</h1>
-    <h3>This link will automatically construct a link to deploy the template at azuredeploy.json in the same location as the DEPLOY.html file.  This is useful for deploying the template from a static website without having to edit the HTML.</h3>
-    <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true"
-     alt="Deploy to Azure Button"
-     onclick="javascript:window.location.href='https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json'"
-     />
+    <h3>This page will automatically construct a link to deploy the template at azuredeploy.json in the same location as the DEPLOY.html file.  This is useful for deploying the template from a static website without having to edit the HTML.</h3>
+    <a id="deploylink" href="#">
+      <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true"
+        alt="Deploy to Azure Button"
+        onclick="javascript:window.location.href='https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json'"
+      />
+     </a>
+     <div id="deploylinklabel"></div>
+     <script lang="javascript">
+       newdeploylink = 'https://portal.azure.com/#create/Microsoft.Template/uri/';
+       current = window.location.href;
+       templateuri = current.substr(0, current.lastIndexOf('/')+1) + 'azuredeploy.json';
+       newdeploylink += encodeURI(templateuri);
+       document.getElementById('deploylink').href=newdeploylink;
+       document.getElementById('deploylinklabel').innerText=newdeploylink;
+     </script>
      </body>
 </html>
