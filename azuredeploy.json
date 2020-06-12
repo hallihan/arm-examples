@@ -453,7 +453,7 @@
                 },
                 "parameters": {
                     "templateUri": {
-                        "value": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
+                        "value": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
                     },
                     "Backend VM Template": {
                         "value": "[parameters('Backend VM Template')]"
@@ -633,7 +633,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {
@@ -705,7 +705,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'scripts/paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {
