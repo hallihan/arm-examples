@@ -80,12 +80,47 @@
                 "Standard_D64s_v3 6xP30 (6144MB/node)"
             ]
         },
-        "Backend Network Security Group Name": {
-            "defaultValue": "backendNSG",
+        "Frontend Network Security Group Name": {
+            "defaultValue": "frontentNSG",
             "type": "String"
+        },
+        "Allow Frontend connection from IP or CIDR block": {
+            "defaultValue": "0.0.0.0/0",
+            "type": "string",
+            "metadata": {
+                "description": "Default value of 0.0.0.0/0 allows management and connections from the entire Internet"
+            }
+        },
+        "Deploy Azure Bastion Frontend": {
+            "defaultValue": "Yes",
+            "type": "String",
+            "allowedValues": [
+                "No",
+                "Yes"
+            ]
+        },
+        "Deploy App Gateway Frontend": {
+            "defaultValue": "Yes",
+            "type": "String",
+            "allowedValues": [
+                "No",
+                "Yes"
+            ]
+        },
+        "Deploy Jump Box Frontend": {
+            "defaultValue": "Yes",
+            "type": "String",
+            "allowedValues": [
+                "No",
+                "Yes"
+            ]
         },
         "Midtier Network Security Group Name": {
             "defaultValue": "midtierNSG",
+            "type": "String"
+        },
+        "Backend Network Security Group Name": {
+            "defaultValue": "backendNSG",
             "type": "String"
         },
         "Proximity PlacementGroup Name": {
@@ -95,21 +130,6 @@
         "ssh Key for VM Access": {
             "defaultValue": "",
             "type": "String"
-        },
-        "Allow management from IP or CIDR block": {
-            "defaultValue": "0.0.0.0/0",
-            "type": "string",
-            "metadata": {
-                "description": "Default value of 0.0.0.0/0 allows management and connections from the entire Internet"
-            }
-        },
-        "Deploy Azure Bastion": {
-            "defaultValue": "No",
-            "type": "String",
-            "allowedValues": [
-                "No",
-                "Yes"
-            ]
         }
     },
     "variables": {
@@ -257,7 +277,7 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-12-01",
-            "name": "jumpNSG",
+            "name": "[parameters('Frontend Network Security Group Name')]",
             "condition": "[equals(parameters('Use a New or Existing Virtual Network?'), 'New')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
@@ -266,41 +286,13 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "allow_ssh_from_ip_or_range",
-                        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "22",
-                            "sourceAddressPrefix": "[parameters('Allow management from IP or CIDR block')]",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 500,
-                            "direction": "Inbound"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2019-12-01",
-            "name": "appgatewayNSG",
-            "condition": "[equals(parameters('Use a New or Existing Virtual Network?'), 'New')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
-            ],
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "securityRules": [
-                    {
-                        "name": "allow_http_from_ip_or_range",
+                        "name": "allow_http_from_ip_or_range_forwebhttp",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "80",
-                            "sourceAddressPrefix": "[parameters('Allow management from IP or CIDR block')]",
+                            "sourceAddressPrefix": "[parameters('Allow Frontend connection from IP or CIDR block')]",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
                             "priority": 500,
@@ -308,64 +300,35 @@
                         }
                     },
                     {
-                        "name": "allow_management_from_gateway_manager",
+                        "name": "allow_ssh_from_ip_or_range_for_jumpboxssh",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "65200-65535",
-                            "sourceAddressPrefix": "GatewayManager",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "[parameters('Allow Frontend connection from IP or CIDR block')]",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 501,
+                            "priority": 510,
                             "direction": "Inbound"
                         }
-                    }
-
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2019-12-01",
-            "name": "bastionNSG",
-            "condition": "[equals(parameters('Use a New or Existing Virtual Network?'), 'New')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
-            ],
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "securityRules": [
+                    },
                     {
-                        "name": "allow_https_from_ip_or_range",
+                        "name": "allow_https_from_ip_or_range_for_bastion",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "443",
-                            "sourceAddressPrefix": "[parameters('Allow management from IP or CIDR block')]",
+                            "sourceAddressPrefix": "[parameters('Allow Frontend connection from IP or CIDR block')]",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 500,
+                            "priority": 520,
                             "direction": "Inbound"
                         }
                     },
                     {
-                        "name": "allow_https_from_gateway_manager",
-                        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "GatewayManager",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 501,
-                            "direction": "Inbound"
-                        }
-                    },
-                    {
-                        "name": "allow_ssh_to_vnet",
+                        "name": "allow_ssh_to_vnet_for_bastion",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
@@ -374,12 +337,12 @@
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "VirtualNetwork",
                             "access": "Allow",
-                            "priority": 500,
+                            "priority": 530,
                             "direction": "Outbound"
                         }
                     },
                     {
-                        "name": "allow_rdp_to_vnet",
+                        "name": "allow_rdp_to_vnet_for_bastion",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
@@ -388,12 +351,12 @@
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "VirtualNetwork",
                             "access": "Allow",
-                            "priority": 501,
+                            "priority": 540,
                             "direction": "Outbound"
                         }
                     },
                     {
-                        "name": "allow_https_to_azurecloud",
+                        "name": "allow_https_to_azurecloud_for_bastion",
                         "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                         "properties": {
                             "protocol": "*",
@@ -402,11 +365,38 @@
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "AzureCloud",
                             "access": "Allow",
-                            "priority": 503,
+                            "priority": 550,
                             "direction": "Outbound"
                         }
+                    },
+                    {
+                        "name": "allow_management_from_gateway_manager_for_appgateway",
+                        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "65200-65535",
+                            "sourceAddressPrefix": "GatewayManager",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 560,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "allow_https_from_gateway_manager_for_appgateway",
+                        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "GatewayManager",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 570,
+                            "direction": "Inbound"
+                        }
                     }
-
                 ]
             }
         },
@@ -429,7 +419,7 @@
                         "value": "[resourceGroup().location]"
                     },
                     "lb_name": {
-                        "value": "[concat(parameters('Backend VM Name Base'),'-loadbalancer')]"
+                        "value": "frontent-loadbalancer')]"
                     },
                     "public_ip": {
                         "value": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-loadbalancer'))]"
@@ -449,7 +439,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            "name": "ParameterizedComputeVM-Loop",
+            "name": "ParameterizedBackendVM-Loop",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
@@ -543,7 +533,7 @@
                         {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
-                            "name": "[concat('ParameterizedComputeVM-', copyIndex())]",
+                            "name": "[concat('ParameterizedBackendVM-', copyIndex())]",
                             "properties": {
                                 "mode": "Incremental",
                                 "templateLink": {
@@ -598,7 +588,7 @@
                                 }
                             },
                             "copy": {
-                                "name": "ParameterizedComputeVM-Copy",
+                                "name": "ParameterizedBackendVM-Copy",
                                 "count": "[parameters('Backend VM Count')]"
                             }
                         }
@@ -608,7 +598,7 @@
                             "type": "array",
                             "copy": {
                                 "count": "[parameters('Backend VM Count')]",
-                                "input": "[reference(concat('ParameterizedComputeVM-', copyIndex())).outputs.privateIp.value]"
+                                "input": "[reference(concat('ParameterizedBackendVM-', copyIndex())).outputs.privateIp.value]"
                             }
                         }
                     }
@@ -689,7 +679,7 @@
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
                 "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-jump'))]",
-                "ParameterizedComputeVM-Loop"
+                "ParameterizedBackendVM-Loop"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -701,7 +691,7 @@
                         "value": "[resourceGroup().location]"
                     },
                     "vm_name": {
-                        "value": "jumpvm"
+                        "value": "frontend-jumpvm"
                     },
                     "vm_size": {
                         "value": "Standard_B2ms"
@@ -732,7 +722,7 @@
                     },
                     "post_install_actions": {
                         "value": {
-                            "commandToExecute": "[concat(variables('postInstallActions')['jump'].commandToExecute,' ', string(reference('ParameterizedComputeVM-Loop').outputs.backendIp.value))]",
+                            "commandToExecute": "[concat(variables('postInstallActions')['jump'].commandToExecute,' ', string(reference('ParameterizedBackendVM-Loop').outputs.backendIp.value))]",
                             "fileUris": "[variables('postInstallActions')['jump'].fileUris]"
                         }
                     },
@@ -777,7 +767,7 @@
                         "properties": {
                             "addressPrefix": "10.2.0.192/27",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'bastionNSG')]"
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('Frontend Network Security Group Name'))]"
                             }
                         }
                     },
@@ -786,7 +776,7 @@
                         "properties": {
                             "addressPrefix": "10.2.0.160/27",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'jumpNSG')]"
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('Frontend Network Security Group Name'))]"
                             }
                         }
                     },
@@ -795,7 +785,7 @@
                         "properties": {
                             "addressPrefix": "10.2.0.128/27",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'appgatewayNSG')]"
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('Frontend Network Security Group Name'))]"
                             }
                         }
                     },
@@ -869,7 +859,7 @@
             "type": "Microsoft.Network/bastionHosts",
             "apiVersion": "2019-12-01",
             "name": "bastion",
-            "condition": "[equals(parameters('Deploy Azure Bastion'), 'Yes')]",
+            "condition": "[equals(parameters('Deploy Azure Bastion Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
