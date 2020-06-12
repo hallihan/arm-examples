@@ -404,8 +404,9 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "ParameterizedAppGateway",
+            "condition": "[equals(parameters('Deploy App Gateway Frontend'), 'Yes')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-loadbalancer'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-loadbalancer-ip')]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
             ],
@@ -419,10 +420,10 @@
                         "value": "[resourceGroup().location]"
                     },
                     "lb_name": {
-                        "value": "frontent-loadbalancer')]"
+                        "value": "frontent-loadbalancer"
                     },
                     "public_ip": {
-                        "value": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-loadbalancer'))]"
+                        "value": "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-loadbalancer-ip')]"
                     },
                     "vnet_name": {
                         "value": "[parameters('Virtual Network Name')]"
@@ -489,6 +490,9 @@
                     },
                     "availabilityset_or_empty": {
                         "value": "[if(greater(parameters('Backend VM Count'),1),concat(parameters('Backend VM Name Base'),'-AS'),'')]"
+                    },
+                    "loadbalancer_id_or_empty": {
+                        "value": "[if(equals(parameters('Deploy App Gateway Frontend'),'Yes'),concat(resourceId('Microsoft.Network/applicationGateways','frontend-loadbalancer'),'/backendAddressPools/default-backend'),'')]"
                     }
                 },
                 "template": {
@@ -532,6 +536,9 @@
                             "type": "object"
                         },
                         "availabilityset_or_empty": {
+                            "type": "string"
+                        },
+                        "loloadbalancer_id_or_empty": {
                             "type": "string"
                         }
 
@@ -590,7 +597,6 @@
                                         "value": ""
                                     },
                                     "loadbalancer_id_or_empty": {
-                                        "value": "[concat(resourceId('Microsoft.Network/applicationGateways',concat(parameters('Backend VM Name Base'),'-loadbalancer')),'/backendAddressPools/default-backend')]"
                                     },
                                     "availabilityset_or_empty": {
                                         "value": "[parameters('availabilityset_or_empty')]"
@@ -688,6 +694,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "ParameterizedJumpVM",
+            "condition": "[equals(parameters('Deploy Jump Box Frontend'), 'Yes')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
@@ -830,6 +837,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('Virtual Network Name'),'-ip-bastion')]",
+            "condition": "[equals(parameters('Deploy Azure Bastion Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
@@ -845,6 +853,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('Virtual Network Name'),'-ip-jump')]",
+            "condition": "[equals(parameters('Deploy Jump Box Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
@@ -859,7 +868,8 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('Virtual Network Name'),'-ip-loadbalancer')]",
+            "name": "frontend-loadbalancer-ip",
+            "condition": "[equals(parameters('Deploy App Gateway Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]"
