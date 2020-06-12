@@ -303,7 +303,10 @@
             },
             "properties": {
                 "platformFaultDomainCount": "[variables('AvailabilitySetFaultDomain')[resourceGroup().location]]",
-                "platformUpdateDomainCount": 6
+                "platformUpdateDomainCount": 6,
+                "proximityPlacementGroup": {
+                    "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',parameters('Proximity PlacementGroup Name'))]"
+                }
             }
         },
         {
@@ -317,7 +320,10 @@
             },
             "properties": {
                 "platformFaultDomainCount": "[variables('AvailabilitySetFaultDomain')[resourceGroup().location]]",
-                "platformUpdateDomainCount": 6
+                "platformUpdateDomainCount": 6,
+                "proximityPlacementGroup": {
+                    "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',parameters('Proximity PlacementGroup Name'))]"
+                }
             }
         },
         {
