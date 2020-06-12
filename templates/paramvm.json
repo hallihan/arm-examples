@@ -69,13 +69,19 @@
         }
     },
     "variables": {
-        "loadbalancer_if_empty": [],
-        "loadbalancer_if_not_empty": [
-            { 
-                "id": "[parameters('loadbalancer_id_or_empty')]"
-                }
+        "loadbalancer_if_empty": [
         ],
-        "loadbalancer": "[if(equals(parameters('loadbalancer_id_or_empty'),''),variables('loadbalancer_if_empty'),variables('loadbalancer_if_not_empty'))]"
+        "loadbalancer_if_not_empty": [
+            {
+                "id": "[parameters('loadbalancer_id_or_empty')]"
+            }
+        ],
+        "loadbalancer": "[if(equals(parameters('loadbalancer_id_or_empty'),''),variables('loadbalancer_if_empty'),variables('loadbalancer_if_not_empty'))]",
+        "publicip_if_empty": null,
+        "public_ip_if_not_empty": {
+            "id": "[parameters('public_ip_or_empty')]"
+        },
+        "publicip":"[if(equals(parameters('public_ip_or_empty'), ''),variables('publicip_if_empty'),variables('public_ip_if_not_empty'))]"
     },
     "resources": [
         {
@@ -169,7 +175,6 @@
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2019-12-01",
-            "condition": "[equals(parameters('public_ip_or_empty'), '')]",
             "name": "[concat(parameters('vm_name'), '_nic')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -177,45 +182,14 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "subnet": {
-                                "id": "[resourceId(parameters('vnet_resource_group'), 'Microsoft.Network/virtualNetworks/subnets', parameters('vnet_name'),  parameters('vnet_subnet_name'))]"
-                            },
-                            "applicationGatewayBackendAddressPools": "[variables('loadbalancer')]",
-                            "primary": true,
-                            "privateIPAddressVersion": "IPv4"
-                        }
-                    }
-                ],
-                "dnsSettings": {
-                    "dnsServers": [
-                    ]
-                },
-                "enableAcceleratedNetworking": "[parameters('enable_enhanced_networking')]",
-                "enableIPForwarding": false
-            }
-        },
-        {
-            "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2019-12-01",
-            "condition": "[not(equals(parameters('public_ip_or_empty'), ''))]",
-            "name": "[concat(parameters('vm_name'), '_nic_pip')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "ipConfigurations": [
-                    {
-                        "name": "ipconfig1",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[resourceId(parameters('vnet_resource_group'), 'Microsoft.Network/virtualNetworks/subnets', parameters('vnet_name'),  parameters('vnet_subnet_name'))]"
                             },
                             "applicationGatewayBackendAddressPools": "[variables('loadbalancer')]",
                             "primary": true,
                             "privateIPAddressVersion": "IPv4",
-                            "publicIPAddress": {
-                                "id": "[parameters('public_ip_or_empty')]"
-                            }
+                            "publicIPAddress": "[variables('publicip')]"
                         }
                     }
                 ],
@@ -229,7 +203,7 @@
         }
     ],
     "outputs": {
-        "privateIp":{
+        "privateIp": {
             "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', if(equals(parameters('public_ip_or_empty'), ''),concat(parameters('vm_name'), '_nic'),concat(parameters('vm_name'), '_nic_pip')))).ipConfigurations[0].properties.privateIPAddress]",
             "type": "string"
         }
