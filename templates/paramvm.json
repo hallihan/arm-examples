@@ -75,7 +75,7 @@
             }
         ],
         "availabilityset_if_not_empty": {
-            "id": "[parameters('availabilityset_id_or_empty')]"
+            "id": "[resourceId(parameters('availabilityset_id_or_empty'))]"
         }
     },
     "resources": [
