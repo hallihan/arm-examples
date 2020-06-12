@@ -703,7 +703,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('Virtual Network Name'))]",
                 "[resourceId('Microsoft.Compute/proximityPlacementGroups', parameters('Proximity PlacementGroup Name'))]",
-                "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-jump'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-jumpvm-ip')]",
                 "ParameterizedBackendVM-Loop"
             ],
             "properties": {
@@ -755,7 +755,7 @@
                         "value": false
                     },
                     "public_ip_or_empty": {
-                        "value": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-jump'))]"
+                        "value": "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-jumpvm-ip')]"
                     },
                     "loadbalancer_id_or_empty": {
                         "value": ""
@@ -841,7 +841,7 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('Virtual Network Name'),'-ip-bastion')]",
+            "name": "frontend-bastion-ip",
             "condition": "[equals(parameters('Deploy Azure Bastion Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -857,7 +857,7 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('Virtual Network Name'),'-ip-jump')]",
+            "name": "frontend-jumpvm-ip",
             "condition": "[equals(parameters('Deploy Jump Box Frontend'), 'Yes')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -903,7 +903,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('Virtual Network Name'),'-ip-bastion'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'frontend-bastion-ip')]"
                             },
                             "subnet": {
                                 "id": "[resourceId(variables('vnet_resource_group_name'), 'Microsoft.Network/virtualNetworks/subnets', parameters('Virtual Network Name'), 'AzureBastionSubnet')]"

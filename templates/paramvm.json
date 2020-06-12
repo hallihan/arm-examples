@@ -73,7 +73,10 @@
             {
                 "id": "[parameters('loadbalancer_id_or_empty')]"
             }
-        ]
+        ],
+        "availabilityset_if_not_empty": {
+            "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilityset_or_empty'))]"
+        }
     },
     "resources": [
         {
@@ -91,7 +94,7 @@
                 "proximityPlacementGroup": {
                     "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',parameters('proximity_group_name'))]"
                 },
-                "availabilitySet": "[if(equals(parameters('availabilityset_or_empty'), ''), json('null'), parameters('availabilityset_or_empty'))]",
+                "availabilitySet": "[if(equals(parameters('availabilityset_or_empty'), ''), json('null'), variables('availabilityset_if_not_empty'))]",
                 "storageProfile": {
                     "imageReference": "[parameters('os_image')]",
                     "osDisk": {
