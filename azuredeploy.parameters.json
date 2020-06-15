@@ -9,13 +9,13 @@
       "value": ""
     },
     "Virtual Network Name": {
-      "value": "GEN-UNIQUE"
+      "value": "GEN-UNIQUE-8"
     },
     "Operating System Image": {
       "value": "Red Hat Enterprise Linux 7 (latest, LVM)"
     },
     "Midtier VM Name Base": {
-      "value": "midtier"
+      "value": "GEN-UNIQUE-8"
     },
     "Midtier VM Count": {
       "value": 1
@@ -24,16 +24,16 @@
       "value": "Standard_D2s_v3"
     },
     "Backend VM Name Base": {
-      "value": "backend"
+      "value": "GEN-UNIQUE-8"
     },
     "Backend VM Count": {
       "value": 2
     },
     "Backend VM Template": {
-      "value": "Standard_D8s_v3 2xP10 (256MB/node)",
+      "value": "Standard_D8s_v3 2xP10 (256MB/node)"
     },
     "Frontend Network Security Group Name": {
-      "value": "frontendNSG"
+      "value": "GEN-UNIQUE-8"
     },
     "Allow Frontend connection from IP or CIDR block": {
       "value": "0.0.0.0/0"
@@ -48,13 +48,13 @@
       "value": "Yes"
     },
     "Midtier Network Security Group Name": {
-      "value": "midtierNSG"
+      "value": "GEN-UNIQUE-8"
     },
     "Backend Network Security Group Name": {
-      "value": "backendNSG"
+      "value": "GEN-UNIQUE-8"
     },
     "Proximity PlacementGroup Name": {
-      "value": "prox1"
+      "value": "GEN-UNIQUE-8"
     },
     "ssh Key for VM Access": {
       "value": "GEN-SSH-PUB-KEY"
