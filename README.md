@@ -21,7 +21,7 @@ Each node in the back-end tier currently runs a script to start a simple web ser
 ## Deploy this template to Azure
 [![Deploy to Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true "Deploy to Azure Button")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 
-*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw base deployment json file after /uri/ in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI should be constructed automatically.* 
+*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw base deployment json file after /uri/ in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
 
 ## Topics Covered:
 
