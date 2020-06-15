@@ -26,32 +26,32 @@
   <div>Clicking the button above will navigate to: <span id="deploylinklabel">If this text is still here, javascript is
       not working.</span></div>
   <hr />
-  <div>The following script is used to construct the deployment link (<a href="https://github.com/hallihan/arm-examples/blob/main/DEPLOY.html#L90-L97">see source on GitHub</a>):</div>
+  <div>The following script is used to construct the deployment link (<a href="https://github.com/hallihan/arm-examples/blob/main/DEPLOY.html#L93-L100">see source on GitHub</a>):</div>
   <br />
   <div>
     <table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="90"></td>
+        <td class="blob-num js-line-number" data-line-number="93"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;</span><span
             class=pl-ent>script</span> <span class=pl-c1>lang</span>=&quot;<span class=pl-s>javascript</span>&quot;<span
             class=pl-kos>&gt;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="91"></td>
+        <td class="blob-num js-line-number" data-line-number="94"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
             class=pl-c1>=</span> <span
             class=pl-s>&#39;https://portal.azure.com/#create/Microsoft.Template/uri/&#39;</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="92"></td>
+        <td class="blob-num js-line-number" data-line-number="95"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>current</span> <span
             class=pl-c1>=</span> <span class=pl-smi>window</span><span class=pl-kos>.</span><span
             class=pl-c1>location</span><span class=pl-kos>.</span><span class=pl-c1>href</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="93"></td>
+        <td class="blob-num js-line-number" data-line-number="96"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>templateuri</span> <span
             class=pl-c1>=</span> <span class=pl-s1>current</span><span class=pl-kos>.</span><span
             class=pl-en>substr</span><span class=pl-kos>(</span><span class=pl-c1>0</span><span class=pl-kos>,</span>
@@ -61,13 +61,13 @@
             class=pl-s>&#39;azuredeploy.json&#39;</span><span class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="94"></td>
+        <td class="blob-num js-line-number" data-line-number="97"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
             class=pl-c1>+=</span> <span class=pl-en>encodeURI</span><span class=pl-kos>(</span><span
             class=pl-s1>templateuri</span><span class=pl-kos>)</span><span class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="95"></td>
+        <td class="blob-num js-line-number" data-line-number="98"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
             class=pl-kos>.</span><span class=pl-en>getElementById</span><span class=pl-kos>(</span><span
             class=pl-s>&#39;deploylink&#39;</span><span class=pl-kos>)</span><span class=pl-kos>.</span><span
@@ -75,7 +75,7 @@
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="96"></td>
+        <td class="blob-num js-line-number" data-line-number="99"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
             class=pl-kos>.</span><span class=pl-en>getElementById</span><span class=pl-kos>(</span><span
             class=pl-s>&#39;deploylinklabel&#39;</span><span class=pl-kos>)</span><span class=pl-kos>.</span><span
@@ -83,7 +83,7 @@
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td class="blob-num js-line-number" data-line-number="97"></td>
+        <td class="blob-num js-line-number" data-line-number="100"></td>
         <td class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;/</span><span
             class=pl-ent>script</span><span class=pl-kos>&gt;</span></td>
       </tr>
