@@ -499,7 +499,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramlb.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'nested/paramlb.json')]"
                 },
                 "parameters": {
                     "location": {
@@ -540,7 +540,7 @@
                 },
                 "parameters": {
                     "templateUri": {
-                        "value": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
+                        "value": "[uri(deployment().properties.templateLink.uri, 'nested/paramvm.json')]"
                     },
                     "Backend VM Template": {
                         "value": "[parameters('Backend VM Template')]"
@@ -721,7 +721,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'nested/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {
@@ -793,7 +793,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'templates/paramvm.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'nested/paramvm.json')]"
                 },
                 "parameters": {
                     "location": {

@@ -1,6 +1,14 @@
-# Sample Parameterized Azure ARM Deployment
+# Parameterized Azure ARM Template Deployment
 
 This sample template will deploy multiple tiers of resources into an Azure Resource Group.  Each tier has configurable elements, to show how you can expose parameterization to the end user.
+
+## Deploy this template to Azure
+[![Deploy to Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true "Deploy to Azure Button")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
+[![Deploy To Azure US Gov](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazuregov.svg?sanitize=true)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
+[![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
+
+*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the [azuredeploy.json](azuredeploy.json) file after /uri/ in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
 
 ## Overview
 
@@ -18,11 +26,6 @@ The middle-tier currently serves no real purpose other than to demonstrate varia
 ### Back End
 Each node in the back-end tier currently runs a script to start a simple web server on port 80 (See [ExamplePostInstall2.sh](scripts/ExamplePostInstall2.sh)).  The web server will display a static html file that includes the virtual machine name retrieved from the [Azure Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service).
 
-## Deploy this template to Azure
-[![Deploy to Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true "Deploy to Azure Button")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
-
-*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the [azuredeploy.json](azuredeploy.json) file after /uri/ in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
-
 ## Topics Covered:
 
 #### [Naming Parameters to be User Friendly](detail/UserFriendlyParameters.md) *TODO*
@@ -32,3 +35,5 @@ Each node in the back-end tier currently runs a script to start a simple web ser
 #### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/AGTemplate.md) *TODO*
 
 ## [See License](LICENSE)
+
+`Tags: ARM, Variables, Linked Templates, IaaS`
