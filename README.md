@@ -16,7 +16,7 @@ All 3 front-ends are protected by Network Security Groups and only allow access 
 The middle-tier currently serves no real purpose other than to demonstrate variable configuration deployment of 0, 1, or 3 VMs as is seen in services that include a high-availability configuration when deployed.
 
 ### Back End
-Each node in the back-end tier currently runs a script to start a simple web server on port 80 (See [ExamplePostInstall2.sh](scripts/ExamplePostInstall2.sh)).  The web server will display a static html file that includes the virtual machine name that has been retrieve from the [Azure Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service).
+Each node in the back-end tier currently runs a script to start a simple web server on port 80 (See [ExamplePostInstall2.sh](scripts/ExamplePostInstall2.sh)).  The web server will display a static html file that includes the virtual machine name retrieved from the [Azure Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service).
 
 ## Deploy this template to Azure
 [![Deploy to Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true "Deploy to Azure Button")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
