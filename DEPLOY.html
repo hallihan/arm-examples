@@ -6,6 +6,9 @@
     href="https://github.githubassets.com/assets/frameworks-c674083190ce1d94f210f9171dd8b0a8.css" />
   <link crossorigin="anonymous" media="all" rel="stylesheet"
     href="https://github.githubassets.com/assets/github-056faeabc196106b48c8f7e009069446.css" />
+  <style>
+    div { padding: 10px 10px 10px 10px;}
+  </style>
 </head>
 
 <body>
@@ -23,33 +26,33 @@
   <div>Clicking the button above will navigate to: <span id="deploylinklabel">If this text is still here, javascript is
       not working.</span></div>
   <hr />
-  <div>The following script is used to construct the deployment link:</div>
+  <div>The following script is used to construct the deployment link ([see source on GitHub](https://github.com/hallihan/arm-examples/blob/main/DEPLOY.html#L90-L97)):</div>
   <br />
   <div>
     <table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
       <tr>
-        <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
-        <td id="LC15" class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;</span><span
+        <td class="blob-num js-line-number" data-line-number="90"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;</span><span
             class=pl-ent>script</span> <span class=pl-c1>lang</span>=&quot;<span class=pl-s>javascript</span>&quot;<span
             class=pl-kos>&gt;</span></td>
       </tr>
       <tr>
-        <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
-        <td id="LC16" class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
+        <td class="blob-num js-line-number" data-line-number="91"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
             class=pl-c1>=</span> <span
             class=pl-s>&#39;https://portal.azure.com/#create/Microsoft.Template/uri/&#39;</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
-        <td id="LC17" class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>current</span> <span
+        <td class="blob-num js-line-number" data-line-number="92"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>current</span> <span
             class=pl-c1>=</span> <span class=pl-smi>window</span><span class=pl-kos>.</span><span
             class=pl-c1>location</span><span class=pl-kos>.</span><span class=pl-c1>href</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
-        <td id="LC18" class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>templateuri</span> <span
+        <td class="blob-num js-line-number" data-line-number="93"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>templateuri</span> <span
             class=pl-c1>=</span> <span class=pl-s1>current</span><span class=pl-kos>.</span><span
             class=pl-en>substr</span><span class=pl-kos>(</span><span class=pl-c1>0</span><span class=pl-kos>,</span>
           <span class=pl-s1>current</span><span class=pl-kos>.</span><span class=pl-en>lastIndexOf</span><span
@@ -58,30 +61,30 @@
             class=pl-s>&#39;azuredeploy.json&#39;</span><span class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
-        <td id="LC19" class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
+        <td class="blob-num js-line-number" data-line-number="94"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-s1>newdeploylink</span> <span
             class=pl-c1>+=</span> <span class=pl-en>encodeURI</span><span class=pl-kos>(</span><span
             class=pl-s1>templateuri</span><span class=pl-kos>)</span><span class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
-        <td id="LC20" class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
+        <td class="blob-num js-line-number" data-line-number="95"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
             class=pl-kos>.</span><span class=pl-en>getElementById</span><span class=pl-kos>(</span><span
             class=pl-s>&#39;deploylink&#39;</span><span class=pl-kos>)</span><span class=pl-kos>.</span><span
             class=pl-c1>href</span><span class=pl-c1>=</span><span class=pl-s1>newdeploylink</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
-        <td id="LC21" class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
+        <td class="blob-num js-line-number" data-line-number="96"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-smi>document</span><span
             class=pl-kos>.</span><span class=pl-en>getElementById</span><span class=pl-kos>(</span><span
             class=pl-s>&#39;deploylinklabel&#39;</span><span class=pl-kos>)</span><span class=pl-kos>.</span><span
             class=pl-c1>innerText</span><span class=pl-c1>=</span><span class=pl-s1>newdeploylink</span><span
             class=pl-kos>;</span></td>
       </tr>
       <tr>
-        <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
-        <td id="LC22" class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;/</span><span
+        <td class="blob-num js-line-number" data-line-number="97"></td>
+        <td class="blob-code blob-code-inner js-file-line"> <span class=pl-kos>&lt;/</span><span
             class=pl-ent>script</span><span class=pl-kos>&gt;</span></td>
       </tr>
     </table>
