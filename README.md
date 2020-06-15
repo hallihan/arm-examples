@@ -36,9 +36,9 @@ Each node in the back-end tier currently runs a script to start a simple web ser
 
 ## Topics Covered:
 
-#### [Naming Parameters to be User Friendly](detail/UserFriendlyParameters.md) *TODO*
-#### [Using Variables to Centralize Configurable Elements](detail/ComplexVariables.md) *TODO*
-#### [Use Deployment Properties to avoid hardcoded URIs](detail/TemplateLink.md) *TODO*
+#### [Naming Parameters to be User Friendly](detail/UserFriendlyParameters.md)
+#### [Using Variables to Centralize Configurable Elements](detail/ComplexVariables.md)
+#### [Use Deployment Properties to avoid hardcoded URIs](detail/TemplateLink.md)
 #### [Use Linked Template for Multiple Resources (IaaS)](detail/VMTemplate.md) *TODO*
 #### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/AGTemplate.md) *TODO*
 
