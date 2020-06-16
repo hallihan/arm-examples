@@ -69,6 +69,9 @@
         }
     },
     "variables": {
+        "public_ip_if_not_empty": {
+            "id": "[parameters('public_ip_or_empty')]"
+        },
         "loadbalancer_if_not_empty": [
             {
                 "id": "[parameters('loadbalancer_id_or_empty')]"
@@ -76,9 +79,6 @@
         ],
         "availabilityset_if_not_empty": {
             "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('availabilityset_id_or_empty'))]"
-        },
-        "public_ip_if_not_empty": {
-            "id": "[parameters('public_ip_or_empty')]"
         }
     },
     "resources": [
