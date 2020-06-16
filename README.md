@@ -16,7 +16,7 @@ This sample template will deploy multiple tiers of resources into an Azure Resou
 [![Deploy To Azure US Gov](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazuregov.svg?sanitize=true)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 [![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 
-*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw [azuredeploy.json](azuredeploy.json) file after /uri/ in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
+*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw [azuredeploy.json](azuredeploy.json) file after `/uri/` in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
 
 ## Overview
 
@@ -39,8 +39,8 @@ Each node in the back-end tier currently runs a script to start a simple web ser
 #### [Naming Parameters to be User Friendly](detail/UserFriendlyParameters.md)
 #### [Using Variables to Centralize Configurable Elements](detail/ComplexVariables.md)
 #### [Use Deployment Properties to avoid hardcoded URIs](detail/TemplateLink.md)
-#### [Use Linked Template for Multiple Resources (IaaS)](detail/VMTemplate.md) *TODO*
-#### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/AGTemplate.md) *TODO*
+#### [Use Linked Template for Multiple Resources (IaaS)](detail/VMTemplate.md)
+#### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/AGTemplate.md)
 
 ## [See License](LICENSE)
 
