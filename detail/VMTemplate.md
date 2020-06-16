@@ -5,6 +5,7 @@ The template [paramvm.json](../nested/paramvm.json) encapsulates some common par
 The template is referenced three different times in [azuredeploy.json](../azuredeploy.json).
 
 For the frontend jump VM, it is used as a single instance and many values are hardcoded ([azuredeploy.json](../azuredeploy.json#L782)):
+
 ```
 {
   "type": "Microsoft.Resources/deployments",
@@ -19,7 +20,7 @@ For the frontend jump VM, it is used as a single instance and many values are ha
     },
 ```
 
-For the midtier VM set, the linked template is used in a simple copy loop.  Note that availabilityset_id_or_empty is only populated if the count of VMs for this tier is greater than 1 ([azuredeploy.json](../azuredeploy.json#L712)):
+For the midtier VM set, the linked template is used in a simple copy loop.  Note that `availabilityset_id_or_empty` is only populated if the count of VMs for this tier is greater than 1 ([azuredeploy.json](../azuredeploy.json#L712)):
 
 ```
 {
@@ -56,6 +57,7 @@ For the midtier VM set, the linked template is used in a simple copy loop.  Note
 ```
 
 For the backend VM set, the linked template is inside a copy loop that is wrapped in a nested template.  This is done so that the outputs from the linked template can be gathered into an array that is used later in the deployment of the Jump VM. The expressionEvaluationOptions scope is set to "inner", so any variables or parameters that need to be visible in the inner copy loop have to be passed in as parameters. ([azuredeploy.json](../azuredeploy.json#L527)):
+
 ```
 {
   "type": "Microsoft.Resources/deployments",
@@ -238,8 +240,5 @@ In order to make use of the parameter that specifies the number of data disks, a
   }
 ]
 ```
-
-
-
 
 [Home](../README.md)

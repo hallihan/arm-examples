@@ -1,6 +1,6 @@
 # Use Linked Template for Multiple Resources
 
-When referring to linked templates or script files you have to point to a location where the files are accessible to the Azure infrastructure target VMs.  While it is possible to hardcode URIs to these resources, it is easier to usitilize the deployment() function to get a link to the base template and then use it to construct a reference to the associated resources.
+When referring to linked templates or script files you have to point to a location where the files are accessible to the Azure infrastructure target VMs.  While it is possible to hardcode URIs to these resources, it is easier to utilize the deployment() function to get a link to the base template and then use it to construct a reference to the associated resources.
 
 Example of using `deployment().properties.templateLink.uri` to construct links to scripts in a subfolder for use with the CustomScript extension:
 ```
@@ -34,6 +34,6 @@ Using the above, you do not have to edit any of the links to subresources, but y
 [![Deploy to Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 ```
 
-Note: If you use this method to link to nested templates, the Redeploy fuction available when viewing a failed deployment from the Azure Portal will not work since the new deployment will not be based on the template at your published location, but instead from a local copy that Azure allows you to modify via the UI.
+Note: If you use this method to link to nested templates, the Redeploy function available when viewing a failed deployment from the Azure Portal will not work since the new deployment will not be based on the template at your published location, but instead from a local copy that Azure allows you to modify via the UI.
 
 [Home](../README.md)
