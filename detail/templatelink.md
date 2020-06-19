@@ -5,8 +5,8 @@ When referring to linked templates or script files you have to point to a locati
 Example of using `deployment().properties.templateLink.uri` to construct links to scripts in a subfolder for use with the CustomScript extension:
 ```
 "fileUris": [
-  "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall1.sh')]",
-  "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall2.sh')]"
+  "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall1.sh')]",
+  "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall2.sh')]"
 ]
 ```
 

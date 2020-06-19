@@ -1,4 +1,4 @@
-# Parameterized Azure ARM Template Deployment
+# Parameterized Linked Templates
 
 This sample template will deploy multiple tiers of resources into an Azure Resource Group.  Each tier has configurable elements, to show how you can expose parameterization to the end user.
 
@@ -16,7 +16,7 @@ This sample template will deploy multiple tiers of resources into an Azure Resou
 [![Deploy To Azure US Gov](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazuregov.svg?sanitize=true)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 [![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fhallihan%2Farm-examples%2Fmain%2Fazuredeploy.json)
 
-*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw [azuredeploy.json](azuredeploy.json) file after `/uri/` in the link defined for the deployment button. If you use the link in [DEPLOY.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/DEPLOY.html) the template URI will be constructed automatically.* 
+*Note: If you fork this repository, you will need to modify the link in [README.md](README.md) to point to your repo.  If you create a separate branch for testing, you will have to include a change to this link to point to your branch as well. You must include a URL-encoded link to the raw [azuredeploy.json](azuredeploy.json) file after `/uri/` in the link defined for the deployment button. If you use the link in [deploy.html (hosted with Github Pages or any Static Web Location)](https://hallihan.github.io/arm-examples/deploy.html) the template URI will be constructed automatically.* 
 
 ## Overview
 
@@ -32,16 +32,16 @@ All 3 front-ends are protected by Network Security Groups and only allow access 
 The middle-tier currently serves no purpose other than to demonstrate variable configuration deployment of 0, 1, or 3 VMs as is seen in services that include a high-availability configuration when deployed.
 
 ### Back End
-Each node in the back-end tier currently runs a script to start a simple web server on port 80 (See [ExamplePostInstall2.sh](scripts/ExamplePostInstall2.sh)).  The web server will display a static html file that includes the virtual machine name retrieved from the [Azure Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service).
+Each node in the back-end tier currently runs a script to start a simple web server on port 80 (See [examplePostInstall2.sh](scripts/examplepostinstall2.sh)).  The web server will display a static html file that includes the virtual machine name retrieved from the [Azure Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service).
 
 ## Topics Covered:
 
-#### [Naming Parameters to be User Friendly](detail/UserFriendlyParameters.md)
-#### [Using Variables to Centralize Configurable Elements](detail/ComplexVariables.md)
-#### [Use Deployment Properties to avoid hardcoded URIs](detail/TemplateLink.md)
-#### [Use Linked Template for Multiple Resources (IaaS)](detail/VMTemplate.md)
-#### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/AGTemplate.md)
+#### [Naming Parameters to be User Friendly](detail/userfriendlyparameters.md)
+#### [Using Variables to Centralize Configurable Elements](detail/complexvariables.md)
+#### [Use Deployment Properties to avoid hardcoded URIs](detail/templatelink.md)
+#### [Use Linked Template for Multiple Resources (IaaS)](detail/vmtemplate.md)
+#### [Use Linked Template to Limit Main Template Complexity (App Gateway)](detail/agtemplate.md)
 
-## [See License](LICENSE)
+## [See License](LICENSE.md)
 
-`Tags: ARM, Variables, Linked Templates, IaaS`
+`Tags: ARM, Variables, Parameters, Linked Templates, IaaS`

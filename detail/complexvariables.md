@@ -44,25 +44,25 @@ In the example below, you can see that there are entire objects defined under `p
 ```
 "postInstallActions": {
   "backend": {
-    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall1.sh; sh ExamplePostInstall2.sh')]",
+    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh examplepostinstall1.sh; sh examplepostinstall2.sh')]",
     "fileUris": [
       "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-      "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall1.sh')]",
-      "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall2.sh')]"
+      "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall1.sh')]",
+      "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall2.sh')]"
     ]
   },
   "midtier": {
-    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall1.sh')]",
+    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh examplepostinstall1.sh')]",
     "fileUris": [
       "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-      "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall1.sh')]"
+      "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall1.sh')]"
     ]
   },
   "jump": {
-    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh ExamplePostInstall3.sh')]",
+    "commandToExecute": "[concat('sh ',variables('osProfile')[variables('ostag')]['diskscript'],'; sh examplepostinstall3.sh')]",
     "fileUris": [
       "[uri(deployment().properties.templateLink.uri, variables('osProfile')[variables('ostag')]['diskscript'])]",
-      "[uri(deployment().properties.templateLink.uri, 'scripts/ExamplePostInstall3.sh')]"
+      "[uri(deployment().properties.templateLink.uri, 'scripts/examplepostinstall3.sh')]"
     ]
   }
 }
